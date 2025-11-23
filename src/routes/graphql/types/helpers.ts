@@ -1,4 +1,12 @@
-import { GraphQLBoolean, GraphQLFloat, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLOutputType, GraphQLString } from 'graphql'
+import {
+  GraphQLBoolean,
+  GraphQLFloat,
+  GraphQLInt,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLOutputType,
+  GraphQLString,
+} from 'graphql'
 import { UUIDType } from './uuid.js'
 
 export const getGraphQLRequiredType = <T extends GraphQLOutputType> (type: T) => {
@@ -12,4 +20,4 @@ export const requiredIntType = getGraphQLRequiredType(GraphQLInt)
 export const requiredBooleanType = getGraphQLRequiredType(GraphQLBoolean)
 
 export const listOf = <T extends GraphQLOutputType>(type: T) =>
-  new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(type))); 
+  new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(type)))

@@ -10,6 +10,7 @@ import { listOf, requiredUUIDType } from './types/helpers.js'
 import { memberTypeIdEnum, memberTypeType } from './types/member-types.js'
 import { postType } from './types/posts.js'
 import { profileType } from './types/profiles.js'
+import { prismaStatsType } from './types/stats.js'
 import { userType } from './types/users.js'
 
 type GqlBody = Static<(typeof createGqlResponseSchema)['body']>;
@@ -17,6 +18,7 @@ type GqlBody = Static<(typeof createGqlResponseSchema)['body']>;
 export type GqlContext = {
   req: FastifyRequest<{ Body: GqlBody }>;
   prisma: FastifyInstance['prisma'];
+  prismaStats: FastifyInstance['prismaStats'];
 };
 
 export const queryType = new GraphQLObjectType<unknown, GqlContext>({
@@ -58,7 +60,7 @@ export const queryType = new GraphQLObjectType<unknown, GqlContext>({
       resolve: (_parent, args: { id: string }, { prisma }) =>
         prisma.profile.findUnique({ where: { id: args.id } }),
     },
-    users: {
+        users: {
       type: listOf(userType),
       resolve: (_parent, _args, { prisma }) => prisma.user.findMany(),
     },
@@ -70,7 +72,10 @@ export const queryType = new GraphQLObjectType<unknown, GqlContext>({
       resolve: (_parent, args: { id: string }, { prisma }) =>
         prisma.user.findUnique({ where: { id: args.id } }),
     },
+    prismaStats: {
+      type: prismaStatsType,
+      resolve: (_parent, _args, { prismaStats }) => prismaStats,
+    },
   },
 });
-
 
