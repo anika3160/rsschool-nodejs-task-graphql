@@ -1,6 +1,6 @@
 import type { Profile } from '@prisma/client'
 import { GraphQLNonNull, GraphQLObjectType } from 'graphql'
-import type { GqlContext } from '../schema.js'
+import type { GqlContext } from '../queryType.js'
 import { requiredBooleanType, requiredIntType, requiredUUIDType } from './helpers.js'
 import { memberTypeType } from './member-types.js'
 

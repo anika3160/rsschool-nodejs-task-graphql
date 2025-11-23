@@ -2,8 +2,7 @@ import { Static } from '@fastify/type-provider-typebox'
 import type { FastifyInstance, FastifyRequest } from 'fastify'
 import {
   GraphQLNonNull,
-  GraphQLObjectType,
-  GraphQLSchema
+  GraphQLObjectType
 } from 'graphql'
 import { MemberTypeId } from '../member-types/schemas.js'
 import { createGqlResponseSchema } from './schemas.js'
@@ -13,20 +12,14 @@ import { postType } from './types/posts.js'
 import { profileType } from './types/profiles.js'
 import { userType } from './types/users.js'
 
-export type GqlBody = Static<(typeof createGqlResponseSchema)['body']>;
+type GqlBody = Static<(typeof createGqlResponseSchema)['body']>;
 
 export type GqlContext = {
   req: FastifyRequest<{ Body: GqlBody }>;
   prisma: FastifyInstance['prisma'];
 };
 
-export const createContext = (
-  req: FastifyRequest<{ Body: GqlBody }>,
-  prisma: FastifyInstance['prisma'],
-): GqlContext => ({ req, prisma });
-
-
-const queryType = new GraphQLObjectType<unknown, GqlContext>({
+export const queryType = new GraphQLObjectType<unknown, GqlContext>({
   name: 'RootQueryType',
   fields: {
     memberTypes: {
@@ -80,6 +73,4 @@ const queryType = new GraphQLObjectType<unknown, GqlContext>({
   },
 });
 
-export const schema = new GraphQLSchema({
-  query: queryType,
-});
+

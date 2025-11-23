@@ -4,7 +4,7 @@ import {
   GraphQLNonNull,
   GraphQLObjectType
 } from 'graphql'
-import type { GqlContext } from '../schema.js'
+import type { GqlContext } from '../queryType.js'
 import { requiredFloatType, requiredStringType, requiredUUIDType } from './helpers.js'
 import { postType } from './posts.js'
 import { profileType } from './profiles.js'
